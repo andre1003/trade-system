@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class TradeSystem : MonoBehaviour
 {
-    // Player and NPC game objects
-    public GameObject player;
-    public GameObject shopkeeper;
+    // Trade canvas
+    public Canvas tradeCanvas;
 
+    // Trade UI
+    public TradeUI tradeUI;
 
     // Player controller
     private PlayerController playerController;
@@ -42,5 +44,34 @@ public class TradeSystem : MonoBehaviour
         playerController.AddCoins(item.price);
         npcInventory.AddItem(item);
         playerInventory.RemoveItem(item);
+    }
+
+    /// <summary>
+    /// Set both player and NPC inventories.
+    /// </summary>
+    /// <param name="playerInventory">Player inventory.</param>
+    /// <param name="npcInventory">NPC inventory.</param>
+    public void SetInventories(Inventory playerInventory, Inventory npcInventory)
+    {
+        this.playerInventory = playerInventory;
+        this.npcInventory = npcInventory;
+    }
+
+    /// <summary>
+    /// Set local PlayerController reference.
+    /// </summary>
+    /// <param name="playerController">Player controller.</param>
+    public void SetPlayerController(PlayerController playerController)
+    {
+        this.playerController = playerController;
+    }
+
+    /// <summary>
+    /// Setup trade UI and display it to player.
+    /// </summary>
+    public void DisplayUI()
+    {
+        tradeUI.SetupInventoryUI(playerInventory, npcInventory);
+        tradeCanvas.enabled = true;
     }
 }

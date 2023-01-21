@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -13,6 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI coinsText;
 
+
+    // Inventory
+    [SerializeField] private Inventory inventory;
 
     // Player movement
     private float horizontalMove;
@@ -93,5 +95,19 @@ public class PlayerController : MonoBehaviour
     {
         // Update coins text
         coinsText.text = coins.ToString().PadLeft(4, '0');
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Trader")
+        {
+            // Get trade system component
+            TradeSystem tradeSystem = GameObject.Find("TradeSystem").GetComponent<TradeSystem>();
+
+            // Set inventories and player controller
+            tradeSystem.SetInventories(inventory, collision.GetComponent<Inventory>());
+            tradeSystem.SetPlayerController(this);
+            tradeSystem.DisplayUI();
+        }
     }
 }

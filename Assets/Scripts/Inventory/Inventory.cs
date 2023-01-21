@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     // Item list
-    private List<InventorySlot> slots = new List<InventorySlot>();
+    public List<InventorySlot> slots = new List<InventorySlot>();
 
 
     /// <summary>
@@ -69,11 +69,25 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// Get all items on inventory.
+    /// Add an item with a certain amount.
     /// </summary>
-    /// <returns>Saved items.</returns>
-    public List<InventorySlot> GetSlots()
-    { 
-        return slots;
+    /// <param name="item">Item to add.</param>
+    /// <param name="amount">Amount to add.</param>
+    public void AddItemWithAmount(Item item, int amount)
+    {
+        // Loop all inventory slots
+        foreach(InventorySlot slot in slots)
+        {
+            // If the item already exists on inventory, increase the amount an exit
+            if(slot.item == item)
+            {
+                slot.amount += amount;
+                return;
+            }
+        }
+
+        // If the item does not exist on inventory, create a new slot and add to slots list
+        InventorySlot newSlot = new InventorySlot(item, amount);
+        slots.Add(newSlot);
     }
 }
