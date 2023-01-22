@@ -32,7 +32,6 @@ public class SlotUI : MonoBehaviour
         this.icon.sprite = item.icon;
         this.amountText.text = amountText;
         this.priceText.text = item.price.ToString().PadLeft(3, '0');
-        this.tradeSystem = GameObject.Find("TradeSystem").GetComponent<TradeSystem>();
     }
 
     /// <summary>
@@ -52,6 +51,9 @@ public class SlotUI : MonoBehaviour
         {
             button.onClick.AddListener(Sell);
         }
+
+        // If there is a bind to slot button, the trade system is needed, so find it
+        tradeSystem = GameObject.Find("TradeSystem").GetComponent<TradeSystem>();
     }
 
     /// <summary>
@@ -68,5 +70,71 @@ public class SlotUI : MonoBehaviour
     public void Sell()
     {
         tradeSystem.SellItem(item);
+    }
+
+    /// <summary>
+    /// Use item method.
+    /// </summary>
+    public void Use()
+    {
+        // Get sockets and declare item object
+        GameObject sockets = GameObject.Find("Sockets");
+        int index = -1;
+
+        // Switch item type
+        switch(item.type)
+        {
+            // Armor
+            case Item.Type.Armor:
+                index = 0;
+                break;
+
+            // Helmet
+            case Item.Type.Helmet:
+                index = 1;
+                break;
+
+            // Weapon
+            case Item.Type.Weapon:
+                index = 2;
+                break;
+        }
+
+        // Declar is removing item as false
+        bool isRemovingItem = false;
+
+        // If there are any items in socket child
+        if(sockets.transform.GetChild(index).childCount > 0)
+        {
+            // If the item is the same that this.item, set isRemoving item to true
+            if(sockets.transform.GetChild(index).GetChild(0).name.Contains(item.prefab.name))
+            {
+                isRemovingItem = true;
+            }
+
+            // Clear this socket children
+            ClearSocket(sockets.transform.GetChild(index));
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().UnequipItem(index);
+        }
+
+        // If is not removing the item, instantiate the item prefab on the correct socket
+        if(!isRemovingItem)
+        {
+            Instantiate(item.prefab, sockets.transform.GetChild(index));
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().EquipItem(item);
+        }
+    }
+
+    /// <summary>
+    /// Clear all children of a given socket.
+    /// </summary>
+    /// <param name="socket">Socket to be cleared.</param>
+    private void ClearSocket(Transform socket)
+    {
+        // Loop socket child and destroy everything
+        for(int i = socket.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(socket.transform.GetChild(i).gameObject);
+        }
     }
 }

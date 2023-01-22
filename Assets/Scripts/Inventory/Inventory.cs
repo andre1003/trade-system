@@ -7,6 +7,24 @@ public class Inventory : MonoBehaviour
     // Item list
     public List<InventorySlot> slots = new List<InventorySlot>();
 
+    // Inventory canvas
+    public Canvas inventoryCanvas;
+
+
+    // Equipped items
+    private Item equippedArmor;
+    private Item equippedHelmet;
+    private Item equippedWeapon;
+
+    // Player controller reference
+    private PlayerController playerController;
+
+
+    void Start()
+    {
+        // Get player controller reference
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
 
     /// <summary>
     /// Add an item to inventory.
@@ -89,5 +107,107 @@ public class Inventory : MonoBehaviour
         // If the item does not exist on inventory, create a new slot and add to slots list
         InventorySlot newSlot = new InventorySlot(item, amount);
         slots.Add(newSlot);
+    }
+
+    /// <summary>
+    /// Display or hide inventory UI.
+    /// </summary>
+    /// <returns>TRUE if success. FALSE if failed.</returns>
+    public bool DisplayOrHide()
+    {
+        // If there is no inventory canvas, return false
+        if(inventoryCanvas == null)
+        {
+            return false;
+        }
+
+        // Get InventoryUI component
+        InventoryUI inventoryUI = inventoryCanvas.GetComponent<InventoryUI>();
+
+        // If the inventory UI is NOT being displayed
+        if(!inventoryCanvas.enabled)
+        {
+            // Setup UI and display the UI
+            inventoryUI.SetupInventoryUI(this);
+            inventoryCanvas.enabled = true;
+        }
+
+        // If the inventory UI is being displayed
+        else
+        {
+            // Clear and hide inventory UI
+            inventoryUI.Close();
+        }
+        
+        // Return success
+        return true;
+    }
+
+    /// <summary>
+    /// Get additional damage of an equipped weapon.
+    /// </summary>
+    /// <returns>Additional damage from item.</returns>
+    public int GetAdditionalDamageOfItem()
+    {
+        int additionalDamage = 0;
+
+        if(equippedWeapon != null)
+        {
+            additionalDamage += equippedWeapon.additionalDamage;
+        }
+
+        return additionalDamage;
+    }
+
+    /// <summary>
+    /// Equip an item.
+    /// </summary>
+    /// <param name="item">Item to equip.</param>
+    public void EquipItem(Item item)
+    {
+        // Switch item type
+        switch(item.type)
+        {
+            // Armor
+            case Item.Type.Armor:
+                playerController.BuffHealth(item.additionalHealth);
+                equippedArmor = item;
+                break;
+
+            // Helmet
+            case Item.Type.Helmet:
+                playerController.BuffHealth(item.additionalHealth);
+                equippedHelmet = item;
+                break;
+
+            // Weapon
+            case Item.Type.Weapon:
+                equippedWeapon = item;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Unequip an item, based on index variable.
+    /// </summary>
+    /// <param name="index">0 - Armor. 1 - Helmet. 2 - Weapon.</param>
+    public void UnequipItem(int index)
+    {
+        switch(index)
+        {
+            case 0:
+                playerController.DebuffHealth(equippedArmor.additionalHealth);
+                equippedArmor = null;
+                break;
+
+            case 1:
+                playerController.DebuffHealth(equippedHelmet.additionalHealth);
+                equippedHelmet = null;
+                break;
+
+            case 2:
+                equippedWeapon = null;
+                break;
+        }
     }
 }

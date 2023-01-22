@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TradeUI : MonoBehaviour
 {
-    // Slot UI
+    // Slot UI prefab
     public GameObject slotUI;
 
     // Player and NPC inventories UIs
@@ -62,7 +62,7 @@ public class TradeUI : MonoBehaviour
         ClearInventories();
 
         // Free player movement
-        GameObject.Find("Player").GetComponent<CharacterController2D>().SetIsBusy(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController2D>().SetIsBusy(false);
 
         // Disable canvas component
         gameObject.GetComponent<Canvas>().enabled = false;
@@ -76,7 +76,6 @@ public class TradeUI : MonoBehaviour
         // Player inventory
         for(int i = playerInventoryUI.transform.childCount - 1; i >= 0; i--)
         {
-
             Destroy(playerInventoryUI.transform.GetChild(i).gameObject);
         }
 

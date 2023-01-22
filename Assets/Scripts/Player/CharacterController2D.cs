@@ -75,6 +75,15 @@ public class CharacterController2D : MonoBehaviour
     }
 
     /// <summary>
+    /// Get player busy status value.
+    /// </summary>
+    /// <returns>Value of isBusy variable.</returns>
+    public bool GetIsBusy()
+    {
+        return isBusy;
+    }
+
+    /// <summary>
     /// Flip player.
     /// </summary>
     private void Flip()
