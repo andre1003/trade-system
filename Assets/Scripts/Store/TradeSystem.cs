@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class TradeSystem : MonoBehaviour
@@ -9,6 +8,12 @@ public class TradeSystem : MonoBehaviour
 
     // Trade UI
     public TradeUI tradeUI;
+
+    // Audio source and clips
+    public AudioSource audioSource;
+    public AudioClip buyClip;
+    public AudioClip sellClip;
+
 
     // Player controller
     private PlayerController playerController;
@@ -31,6 +36,13 @@ public class TradeSystem : MonoBehaviour
             playerController.RemoveCoins(item.price);
             playerInventory.AddItem(item);
             npcInventory.RemoveItem(item);
+            
+            // Update trade system UI
+            UpdateUI();
+
+            // Play buy audio
+            audioSource.clip = buyClip;
+            audioSource.Play();
         }
     }
 
@@ -44,6 +56,13 @@ public class TradeSystem : MonoBehaviour
         playerController.AddCoins(item.price);
         npcInventory.AddItem(item);
         playerInventory.RemoveItem(item);
+
+        // Update trade system UI
+        UpdateUI();
+
+        // Play buy audio
+        audioSource.clip = sellClip;
+        audioSource.Play();
     }
 
     /// <summary>
@@ -73,5 +92,14 @@ public class TradeSystem : MonoBehaviour
     {
         tradeUI.SetupInventoryUI(playerInventory, npcInventory);
         tradeCanvas.enabled = true;
+    }
+
+    /// <summary>
+    /// Update both player and NPC inventories when player buy or sell an item.
+    /// </summary>
+    private void UpdateUI()
+    {
+        tradeUI.ClearInventories();
+        tradeUI.SetupInventoryUI(playerInventory, npcInventory);
     }
 }

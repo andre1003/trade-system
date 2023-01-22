@@ -13,10 +13,12 @@ public class CharacterController2D : MonoBehaviour
 
     private Rigidbody2D playerRigidbody2D;      // Player's rigidbody 2D
     private Vector3 velocity = Vector3.zero;    // Player's velocity
+    private bool isBusy = false;
     #endregion
 
     #region Methods
     #region Unity Methods
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
         // Setup player's rigidbody 2D
@@ -31,6 +33,12 @@ public class CharacterController2D : MonoBehaviour
     /// <param name="verticalMovement">Vertical movement value.</param>
     public void Move(float horizontalMovement, float verticalMovement)
     {
+        // If player is busy, do not move
+        if(isBusy)
+        {
+            return;
+        }
+
         // Get player's target velocity and apply it to player
         Vector3 targetVelocity = new Vector2(horizontalMovement * 10f, verticalMovement * 10f);
         playerRigidbody2D.velocity = Vector3.SmoothDamp(playerRigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
@@ -54,6 +62,16 @@ public class CharacterController2D : MonoBehaviour
     public void StopMoving()
     {
         playerRigidbody2D.velocity = Vector2.zero;
+    }
+
+    /// <summary>
+    /// Set player status to busy. This means that the player won't be able to move. This does not affect the input.
+    /// </summary>
+    /// <param name="isBusy">Busy value.</param>
+    public void SetIsBusy(bool isBusy)
+    {
+        StopMoving();
+        this.isBusy = isBusy;
     }
 
     /// <summary>

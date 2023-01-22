@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class TradeUI : MonoBehaviour
 {
-    // Item
-    public Item item;
-
     // Slot UI
     public GameObject slotUI;
 
     // Player and NPC inventories UIs
-    public Transform playerInventoryUI;
-    public Transform npcInventoryUI;
+    public GameObject playerInventoryUI;
+    public GameObject npcInventoryUI;
 
 
     // Trade system
     private TradeSystem tradeSystem;
 
 
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
         // If trade system is null, find it
@@ -38,23 +36,36 @@ public class TradeUI : MonoBehaviour
         // Player inventory
         foreach(var slot in playerInventory.slots)
         {
-            GameObject newSlot = Instantiate(slotUI, playerInventoryUI);
+            GameObject newSlot = Instantiate(slotUI, playerInventoryUI.transform);
             SlotUI slotUIComponent = newSlot.GetComponent<SlotUI>();
-            slotUIComponent.SetupSlot(slot.item.icon, slot.amount.ToString());
-            item = slot.item;
-            slotUIComponent.button.onClick.AddListener(Sell);
+            slotUIComponent.SetupSlot(slot.item, slot.amount.ToString());
+            slotUIComponent.SetButtonBind(false);
 
         }
 
         // NPC inventory
         foreach(var slot in npcInventory.slots)
         {
-            GameObject newSlot = Instantiate(slotUI, npcInventoryUI);
+            GameObject newSlot = Instantiate(slotUI, npcInventoryUI.transform);
             SlotUI slotUIComponent = newSlot.GetComponent<SlotUI>();
-            slotUIComponent.SetupSlot(slot.item.icon, slot.amount.ToString());
-            item = slot.item;
-            slotUIComponent.button.onClick.AddListener(Buy);
+            slotUIComponent.SetupSlot(slot.item, slot.amount.ToString());
+            slotUIComponent.SetButtonBind(true);
         }
+    }
+
+    /// <summary>
+    /// Close the trade system UI.
+    /// </summary>
+    public void Close()
+    {
+        // Clear inventories
+        ClearInventories();
+
+        // Free player movement
+        GameObject.Find("Player").GetComponent<CharacterController2D>().SetIsBusy(false);
+
+        // Disable canvas component
+        gameObject.GetComponent<Canvas>().enabled = false;
     }
 
     /// <summary>
@@ -63,33 +74,16 @@ public class TradeUI : MonoBehaviour
     public void ClearInventories()
     {
         // Player inventory
-        while(playerInventoryUI.childCount > 0)
+        for(int i = playerInventoryUI.transform.childCount - 1; i >= 0; i--)
         {
-            Transform slot = playerInventoryUI.GetChild(0).parent = null;
-            Destroy(slot);
+
+            Destroy(playerInventoryUI.transform.GetChild(i).gameObject);
         }
 
         // NPC inventory
-        while(npcInventoryUI.childCount > 0)
+        for(int i = npcInventoryUI.transform.childCount - 1; i >= 0; i--)
         {
-            Transform slot = npcInventoryUI.GetChild(0).parent = null;
-            Destroy(slot);
+            Destroy(npcInventoryUI.transform.GetChild(i).gameObject);
         }
-    }
-
-    /// <summary>
-    /// Buy method.
-    /// </summary>
-    public void Buy()
-    {
-        tradeSystem.BuyItem(item);
-    }
-
-    /// <summary>
-    /// Sell method.
-    /// </summary>
-    public void Sell()
-    {
-        tradeSystem.SellItem(item);
     }
 }

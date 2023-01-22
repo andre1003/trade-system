@@ -1,7 +1,4 @@
-using UnityEngine;
-
-
-public class InventorySlot : MonoBehaviour
+public class InventorySlot
 {
     // Item
     public Item item;

@@ -17,6 +17,7 @@ public class ItemRandomizer : MonoBehaviour
     public Inventory inventory;
 
 
+    // Start is called before the first frame update
     void Start()
     {
         // Loop number of items

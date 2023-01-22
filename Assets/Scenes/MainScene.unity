@@ -361,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8efb2b511a141e4eb9bd74a44fbb379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: []
 --- !u!1 &106897457
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +585,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 885648869}
         m_TargetAssemblyTypeName: TradeUI, Assembly-CSharp
-        m_MethodName: ClearInventories
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1444,7 +1443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 663208844}
   m_Layer: 0
-  m_Name: == EVENT SYSTEM ==
+  m_Name: ==== SYSTEMS ====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1512,6 +1511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 693196750}
   - component: {fileID: 693196749}
+  - component: {fileID: 693196751}
   m_Layer: 0
   m_Name: TradeSystem
   m_TagString: Untagged
@@ -1533,6 +1533,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tradeCanvas: {fileID: 885648867}
   tradeUI: {fileID: 885648869}
+  audioSource: {fileID: 693196751}
+  buyClip: {fileID: 8300000, guid: 6a57db66390d4a44fa9bc1d275d5101f, type: 3}
+  sellClip: {fileID: 8300000, guid: a6cdce6dcb67a364bb6e1966717d6a83, type: 3}
 --- !u!4 &693196750
 Transform:
   m_ObjectHideFlags: 0
@@ -1548,6 +1551,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &693196751
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693196748}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &765635342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,7 +2169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8efb2b511a141e4eb9bd74a44fbb379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: []
 --- !u!114 &846994060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2211,10 +2309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56ac2c2e19c5d9499eefbb4a152615b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   slotUI: {fileID: 2087553909541011628, guid: e342ec4da74a3244da62686e66c75d68, type: 3}
-  playerInventoryUI: {fileID: 1754154680}
-  npcInventoryUI: {fileID: 369739914}
+  playerInventoryUI: {fileID: 1754154679}
+  npcInventoryUI: {fileID: 369739913}
 --- !u!1 &923632958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,7 +2457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 945592684}
   m_Layer: 0
-  m_Name: == UI ==
+  m_Name: ==== UI ====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2632,7 +2729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200144353}
   m_Layer: 0
-  m_Name: == NPCs ==
+  m_Name: ==== NPCs ====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3342,7 +3439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1466156132}
   m_Layer: 0
-  m_Name: == ENVIRONMENT ==
+  m_Name: ==== ENVIRONMENT ====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

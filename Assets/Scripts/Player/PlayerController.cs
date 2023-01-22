@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     // Player's walk speed (default is 40f)
     public float walkSpeed = 40f;
 
+    // Coins text
     public TextMeshProUGUI coinsText;
 
 
@@ -101,6 +102,9 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Trader")
         {
+            // Do not allow player to move
+            controller.SetIsBusy(true);
+
             // Get trade system component
             TradeSystem tradeSystem = GameObject.Find("TradeSystem").GetComponent<TradeSystem>();
 
