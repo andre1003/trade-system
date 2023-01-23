@@ -80,12 +80,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="coins">Amount of coins to add.</param>
     public void AddCoins(int coins)
     {
-        this.coins += coins;
-
-        if(this.coins > 9999)
-        {
-            this.coins = 9999;
-        }
+        this.coins = Mathf.Clamp(this.coins + coins, 0, 9999);
     }
 
     /// <summary>
@@ -94,12 +89,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="coins">Amount of coins to remove.</param>
     public void RemoveCoins(int coins)
     {
-        this.coins -= coins;
-
-        if(this.coins < 0)
-        {
-            this.coins = 0;
-        }
+        this.coins = Mathf.Clamp(this.coins - coins, 0, 9999);
     }
 
     /// <summary>
@@ -108,7 +98,26 @@ public class PlayerController : MonoBehaviour
     /// <returns>Player's amount of coins.</returns>
     public int GetCoins()
     {
-        return this.coins;
+        return coins;
+    }
+
+    /// <summary>
+    /// Get health current value.
+    /// </summary>
+    /// <returns>Player health.</returns>
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    /// <summary>
+    /// Restore a certain amount of health.
+    /// </summary>
+    /// <param name="healthToRestore">Health to restore.</param>
+    public void RestoreHealth(float healthToRestore)
+    {
+        // Add health using clamp to not allow health bigger than baseHealth
+        health = Mathf.Clamp(health + healthToRestore, 0, baseHealth);
     }
 
     /// <summary>
@@ -117,12 +126,13 @@ public class PlayerController : MonoBehaviour
     /// <param name="damage">Enemy's damage.</param>
     public void TakeHit(float damage)
     {
-        health -= damage;
+        // Remove health using clamp to not allow health lower than 0
+        health = Mathf.Clamp(health - damage, 0, baseHealth);
 
-        if(health <= 0)
+        // If health is equal to 0, kill player
+        if(health == 0f)
         {
             GameOver.instance.EndGame();
-            health = 0;
         }
     }
 

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    // Audio source
     public AudioSource audioSource;
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {

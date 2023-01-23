@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bd332f8288f2c498254cf60e378ba7, type: 3}
+  m_Name: PurpleArmor
+  m_EditorClassIdentifier: 
+  name: Infinity Armor
+  description: 
+  icon: {fileID: 21300000, guid: 2a3c4254d7c1aae4f83478cb45ceacd8, type: 3}
+  price: 15
+  type: 0
+  prefab: {fileID: 4450643527830715806, guid: 9dff41bf816fbbd4c8ba1ed72a3140d2, type: 3}
+  additionalHealth: 20
+  additionalDamage: 0

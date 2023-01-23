@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bd332f8288f2c498254cf60e378ba7, type: 3}
+  m_Name: PurpleWeapon
+  m_EditorClassIdentifier: 
+  name: Infinity Sword
+  description: 
+  icon: {fileID: 21300000, guid: d5b779e65f1bdc842bcc1802075bbbe2, type: 3}
+  price: 20
+  type: 2
+  prefab: {fileID: 4934199394375714493, guid: 7bd06690640ff0a499dd5bd3af4a1c17, type: 3}
+  additionalHealth: 0
+  additionalDamage: 3

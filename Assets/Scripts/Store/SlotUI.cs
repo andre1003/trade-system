@@ -13,12 +13,18 @@ public class SlotUI : MonoBehaviour
     // Slot button
     public Button button;
 
+    // Information prefab
+    public GameObject informationPrefab;
+
 
     // Trade system
     private TradeSystem tradeSystem;
 
     // Item reference
     private Item item;
+
+    // Item information reference
+    private GameObject info;
 
 
     /// <summary>
@@ -124,6 +130,38 @@ public class SlotUI : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().EquipItem(item);
         }
     }
+
+    /// <summary>
+    /// Display item information to player.
+    /// </summary>
+    public void DisplayItemInformation()
+    {
+        Vector3 position = transform.position;
+        position.y -= 300f;
+
+        // Create information
+        info = Instantiate(informationPrefab);
+        info.transform.parent = transform.parent.parent.parent.parent;
+        info.GetComponent<RectTransform>().position = position;
+        info.GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 1f);
+        
+        info.GetComponent<ItemInformation>().SetInformation(item);
+    }
+
+    /// <summary>
+    /// Hide item information.
+    /// </summary>
+    public void HideItemInformation()
+    {
+        Destroy(info);
+    }
+
+    // Called when begin destroy
+    void OnDestroy()
+    {
+        Destroy(info);
+    }
+
 
     /// <summary>
     /// Clear all children of a given socket.

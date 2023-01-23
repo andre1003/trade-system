@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4bd332f8288f2c498254cf60e378ba7, type: 3}
-  m_Name: Sword
+  m_Name: PurpleHelmet
   m_EditorClassIdentifier: 
-  name: Sword
-  description: A simple sword
-  icon: {fileID: 21300000, guid: b2f3327f47464544293b6b9018e1296e, type: 3}
-  price: 5
-  type: 2
-  prefab: {fileID: 2490622627389526697, guid: e49fd4f83424fec438d1903f4d5ae53f, type: 3}
-  additionalHealth: 0
-  additionalDamage: 1
+  name: Infinity Helmet
+  description: 
+  icon: {fileID: 21300000, guid: 64baf7a16b508fe408b29d72615c3454, type: 3}
+  price: 15
+  type: 1
+  prefab: {fileID: 24655383569120294, guid: 57af27dd8126ceb4eb39023e3329896a, type: 3}
+  additionalHealth: 6
+  additionalDamage: 0
