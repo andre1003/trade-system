@@ -7,8 +7,8 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioMixer mixer;
 
 
-    public void SetVolume(float sliderValue)
+    public void SetVolume(float volume)
     {
-        mixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20);
+        mixer.SetFloat("MasterVolume", volume);
     }
 }

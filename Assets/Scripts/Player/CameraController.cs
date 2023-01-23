@@ -18,6 +18,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If player is null, exit
+        if(player == null)
+        {
+            return;
+        }
+
         // Get player position
         playerPosition = new Vector3(player.position.x, transform.position.y, transform.position.z);
 

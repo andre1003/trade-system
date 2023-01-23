@@ -66,6 +66,13 @@ public class PlayerController : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
     }
 
+    // Called when a new level is loaded
+    void OnLevelWasLoaded(int level)
+    {
+        // Reset player position
+        transform.position = Vector3.zero;
+    }
+
 
     /// <summary>
     /// Add a certain amount of coins.
@@ -114,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
         if(health <= 0)
         {
-            // GAME OVER NEEDED!!
+            GameOver.instance.EndGame();
             health = 0;
         }
     }
@@ -152,7 +159,7 @@ public class PlayerController : MonoBehaviour
         // Change health bar size
         RectTransform rt = healthBar.GetComponent(typeof(RectTransform)) as RectTransform;
         rt.sizeDelta = new Vector2(rt.sizeDelta.x + additionalHealth, rt.sizeDelta.y);
-        rt.position = new Vector3(rt.position.x + additionalHealth, rt.position.y, rt.position.z);
+        rt.position = new Vector3(rt.position.x + (additionalHealth * 1.25f), rt.position.y, rt.position.z);
     }
 
     public void DebuffHealth(float additionalHealth)
@@ -169,7 +176,7 @@ public class PlayerController : MonoBehaviour
         // Change health bar size
         RectTransform rt = healthBar.GetComponent(typeof(RectTransform)) as RectTransform;
         rt.sizeDelta = new Vector2(rt.sizeDelta.x - additionalHealth, rt.sizeDelta.y);
-        rt.position = new Vector3(rt.position.x - additionalHealth, rt.position.y, rt.position.z);
+        rt.position = new Vector3(rt.position.x - (additionalHealth * 1.25f), rt.position.y, rt.position.z);
     }
 
 
@@ -178,7 +185,19 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void InputManager()
     {
-        // If player is busy, do not check for input actions
+        // Display or hide inventory UI
+        if(Input.GetButtonDown("Inventory"))
+        {
+            OpenCloseInventory();
+        }
+
+        // Pause game
+        if(Input.GetButtonDown("Pause"))
+        {
+            PauseGame();
+        }
+
+        // If player is busy, do not check for  the other input actions
         if(controller.GetIsBusy())
         {
             return;
@@ -187,12 +206,6 @@ public class PlayerController : MonoBehaviour
         // Player movement
         horizontalMove = Input.GetAxisRaw("Horizontal") * walkSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * walkSpeed;
-
-        // Display or hide inventory UI
-        if(Input.GetButtonDown("Inventory"))
-        {
-            OpenCloseInventory();
-        }
 
         // Interact action
         if(Input.GetButtonDown("Interact"))
@@ -294,5 +307,20 @@ public class PlayerController : MonoBehaviour
         
         // Add additional damage
         skill.GetComponent<Skill>().damage += additionalDamage;
+    }
+
+    /// <summary>
+    /// Pause or resume game
+    /// </summary>
+    private void PauseGame()
+    {
+        if(PauseMenu.instance.isGamePaused)
+        {
+            PauseMenu.instance.Resume();
+        }
+        else
+        {
+            PauseMenu.instance.Pause();
+        }
     }
 }

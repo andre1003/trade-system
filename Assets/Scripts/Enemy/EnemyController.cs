@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDead)
+        if(isDead || player == null)
         {
             return;
         }
@@ -49,6 +49,7 @@ public class EnemyController : MonoBehaviour
             // Set to invisible and not interactable, just for visual purpose
             transform.GetChild(0).gameObject.SetActive(false);
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
 
             isDead = true;
 
@@ -68,7 +69,7 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player" && canDoDamage)
+        if(collision.gameObject.tag == "Player" && canDoDamage && !isDead)
         {
             player.GetComponent<PlayerController>().TakeHit(damage);
 

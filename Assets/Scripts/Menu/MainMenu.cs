@@ -13,6 +13,22 @@ public class MainMenu : MonoBehaviour
     public Canvas mainMenu;
     public Canvas load;
 
+    // Game audio prefab
+    public GameObject gameAudioPrefab;
+
+
+    void Awake()
+    {
+        // If no game audio found, instantiate it
+        GameObject gameAudio = GameObject.FindGameObjectWithTag("MainAudio");
+        if(gameAudio == null)
+        {
+            Instantiate(gameAudioPrefab);
+        }
+
+        // Destroy player, if exists
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+    }
 
     /// <summary>
     /// Play game.
