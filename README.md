@@ -17,7 +17,7 @@ To install Trade System, just open the dowloaded project with Unity 2021.3.2f1 o
 
 ## ☕ Building and Using Trade System
 
-You can download the latest demo of TD Fantasy [here](https://github.com/andre1003/trade-system/releases/tag/Demo). No errors are expected when building the code. To build the game, follow the instructions bellow:
+To build the game, follow the instructions bellow:
 
 1. Open the game with Unity 2021.3.2f1;
 2. Click on `File`;
