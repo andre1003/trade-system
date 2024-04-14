@@ -1,5 +1,8 @@
 # Trade System
-Trade System is a small project developed by Paulo André Pimenta Aragão, also known as Dufwine, for exemplify a trade system with Unity.
+Trade System is a small project developed by Paulo André Pimenta Aragão, also known as Dufwine, for exemplify a trade system with Unity. This trade system was part of an interview process for Blue Gravity Studios.
+
+![image](https://github.com/andre1003/trade-system/assets/44238339/482dd50e-f7fb-4519-8493-d30c35d381a6)
+
 
 ### Development Stage
 
